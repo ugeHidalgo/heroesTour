@@ -11,10 +11,17 @@ export class HeroesComponent implements OnInit {
 
   heroes = HEROES;
 
-  hero: Hero = {
-    id: 1,
-    name: 'Windstorm'
-  };
+  selectedHero: Hero;
+
+  onSelect(hero : Hero): void {
+
+
+    if (this.selectedHero && this.selectedHero.id === hero.id){
+      this.selectedHero = undefined;
+    } else {
+      this.selectedHero = hero;
+    }
+  }
 
   constructor() { }
 
