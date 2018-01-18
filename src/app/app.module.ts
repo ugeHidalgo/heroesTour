@@ -15,11 +15,18 @@ import { HeroService } from './services/hero.service';
     HeroesComponent,
     HeroDetailComponent
   ],
+
   imports: [
     BrowserModule,
     FormsModule
   ],
-  providers: [ HeroService ],
-  bootstrap: [AppComponent]
+
+  providers: [ 
+    HeroService 
+  ],
+
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
