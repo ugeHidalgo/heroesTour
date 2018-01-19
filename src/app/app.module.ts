@@ -11,6 +11,7 @@ import { HeroService } from './services/hero.service';
 import { MessageService } from './services/message.service';
 import { MessagesComponent } from './messages/messages.component';
 import { AboutComponent } from './about/about.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { AboutComponent } from './about/about.component';
     HeroesComponent,
     HeroDetailComponent,
     MessagesComponent,
-    AboutComponent
+    AboutComponent,
+    DashboardComponent
   ],
 
   imports: [
