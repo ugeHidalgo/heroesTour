@@ -14,6 +14,10 @@ export class DashboardComponent implements OnInit {
 
   constructor(private heroService: HeroService) { }
 
+  ngOnInit() {
+    this.getHeroes();
+  }
+
   getHeroes() : void {
     var me  = this;
 
@@ -21,9 +25,4 @@ export class DashboardComponent implements OnInit {
       heroes => me.heroes = heroes.slice(1,5)
     );
   }
-
-  ngOnInit() {
-    this.getHeroes();
-  }
-
 }
