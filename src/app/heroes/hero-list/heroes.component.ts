@@ -12,7 +12,7 @@ export class HeroesComponent implements OnInit {
   heroes: Hero[];
   selectedHero: Hero;
 
-  onSelect(hero : Hero): void {
+  onSelect(hero: Hero): void {
     var me = this;
 
     if (me.selectedHero && me.selectedHero.id === hero.id){
@@ -29,7 +29,9 @@ export class HeroesComponent implements OnInit {
       .subscribe(heroes => me.heroes = heroes);
   }
 
-  constructor(private heroService: HeroService) { }
+  constructor(private heroService: HeroService) { 
+    
+  }
 
   ngOnInit() {
     var me = this;
