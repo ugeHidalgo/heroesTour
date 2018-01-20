@@ -16,6 +16,7 @@ import { MessagesComponent } from './messages/messages.component';
 
 import { HeroService } from './services/hero.service';
 import { MessageService } from './services/message.service';
+import { HeroSearchComponent } from './hero-search/hero-search.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { MessageService } from './services/message.service';
     HeroDetailComponent,
     MessagesComponent,
     AboutComponent,
-    DashboardComponent
+    DashboardComponent,
+    HeroSearchComponent
   ],
 
   imports: [

@@ -24,6 +24,7 @@ export class HeroService {
   //URL to heroes web API (Actually it´s not a real web api, it´s a in-memory web API)
   private heroesServiceUrl = 'api/heroes';
 
+  /**.*/
   getHero(id: number): Observable<Hero> {
     let me = this,
         getHeroByIdUrl = `${me.heroesServiceUrl}/${id}`,
@@ -35,6 +36,7 @@ export class HeroService {
     return hero;
   }
 
+  /**.*/
   getHeroes(): Observable<Hero[]> {
     let me = this,
         heroes = me.http.get<Hero[]>(me.heroesServiceUrl)
@@ -45,6 +47,24 @@ export class HeroService {
     return heroes;
   }
 
+  /**.*/
+  searchHeroes(term: string): Observable<Hero[]> {
+    let me = this,
+        searchResult,
+        searchUrl,
+        termToSearch = term.trim();
+
+    if (!termToSearch) return of([]);
+    searchUrl = `${me.heroesServiceUrl}/?name=${termToSearch}`;
+    searchResult = me.http.get<Hero[]>(searchUrl)
+                    .pipe(
+                      tap(_ => me.log(`found heroes matching "${termToSearch}"`)),
+                      catchError(me.handleError<Hero[]>('searchHeroes', []))
+                    );
+    return searchResult
+  }
+
+  /**.*/
   addHero(hero: Hero): Observable<Hero> {
     let me = this,
         addHeroUrl = `${me.heroesServiceUrl}`,
@@ -57,6 +77,7 @@ export class HeroService {
         return savedHero;
   }
 
+  /**.*/
   updateHero(hero: Hero): Observable<any> {
     const httpOtions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -73,6 +94,7 @@ export class HeroService {
         return savedHero;
   }
 
+  /**.*/
   deleteHero(hero: Hero): Observable<Hero> {
     let me = this,
         deleteHeroUrl = `${me.heroesServiceUrl}/${hero.id}`;
