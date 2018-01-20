@@ -25,10 +25,20 @@ export class HeroDetailComponent implements OnInit {
   }
 
   //Buttons methods
-  onClickSave(): void {
+  onClickSaveHero(): void {
     let me = this;
 
     me.heroService.updateHero(me.hero)
+        .subscribe( () => {
+            me.onClickGoBack();
+          }
+        );
+  }
+
+  onClickDeleteHero(): void {
+    let me = this;
+
+    me.heroService.deleteHero(me.hero)
         .subscribe( () => {
             me.onClickGoBack();
           }

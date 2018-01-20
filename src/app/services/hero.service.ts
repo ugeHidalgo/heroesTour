@@ -9,6 +9,10 @@ import { Hero } from '../models/hero';
 import { MessageService } from './message.service';
 
 
+const httpOtions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+};
+
 @Injectable()
 export class HeroService {
 
@@ -42,10 +46,6 @@ export class HeroService {
   }
 
   addHero(hero: Hero): Observable<Hero> {
-    const httpOtions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-    };
-
     let me = this,
         addHeroUrl = `${me.heroesServiceUrl}`,
 
@@ -71,6 +71,17 @@ export class HeroService {
                         catchError(me.handleError<any>('updateHero (id:${hero.id}'))
                       );
         return savedHero;
+  }
+
+  deleteHero(hero: Hero): Observable<Hero> {
+    let me = this,
+        deleteHeroUrl = `${me.heroesServiceUrl}/${hero.id}`;
+
+    return me.http.delete<Hero>(deleteHeroUrl, httpOtions)
+            .pipe(
+              tap(_ => me.log(`Hero with id ${hero.id} was deleted.`)),
+              catchError(me.handleError<any>('deleteHero (id:${hero.id}'))
+            );
   }
 
 
