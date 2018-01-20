@@ -25,8 +25,8 @@ export class HeroService {
         getHeroByIdUrl = `${me.heroesServiceUrl}/${id}`,
         hero = me.http.get<Hero>(getHeroByIdUrl)
                       .pipe(
-                        tap(hero => me.log(`Hero with id ${id} was fetched.`)),
-                        catchError(me.handleError<Hero>(`getHero (id:${id}`, null))
+                        tap(_ => me.log(`Hero with id ${id} was fetched.`)),
+                        catchError(me.handleError<Hero>(`getHero (id:${id}`))
                       );
     return hero;
   }
@@ -36,9 +36,25 @@ export class HeroService {
         heroes = me.http.get<Hero[]>(me.heroesServiceUrl)
                   .pipe(
                     tap(heroes => me.log('Heroes fetched.')),
-                    catchError(this.handleError('getHeroes', []))
+                    catchError(me.handleError('getHeroes', []))
                   );
     return heroes;
+  }
+
+  updateHero(hero: Hero): Observable<any> {
+    const httpOtions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+    };
+
+    let me = this,
+        updateHeroUrl = `${me.heroesServiceUrl}/${hero.id}`,
+
+        savedHero = me.http.put<Hero>(updateHeroUrl, hero, httpOtions)
+                      .pipe(
+                        tap(_ => me.log(`Hero with id ${hero.id} was updated.`)),
+                        catchError(me.handleError<any>('updateHero (id:${hero.id}'))
+                      );
+        return savedHero;
   }
 
 

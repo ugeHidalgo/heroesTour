@@ -24,13 +24,26 @@ export class HeroDetailComponent implements OnInit {
     this.getHero()
   }
 
+  //Buttons methods
+  onClickSave(): void {
+    let me = this;
+
+    me.heroService.updateHero(me.hero)
+        .subscribe( () => {
+            me.onClickGoBack();
+          }
+        );
+  }
+
+  onClickGoBack(): void {
+    this.location.back();
+  }
+
+  //Private methods
   getHero(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.heroService.getHero(id).subscribe(hero => this.hero = hero);
-  }  
-
-  goBack(): void {
-    this.location.back();
+    this.heroService.getHero(id)
+        .subscribe(hero => this.hero = hero);
   }
 
 }
